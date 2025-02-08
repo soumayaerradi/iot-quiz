@@ -137,8 +137,8 @@
 
             fetch("https://1ae7-192-167-31-3.ngrok-free.app/submit", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, answers }),
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({name, answers}),
             })
                 .then((response) => response.text())
                 .then((message) => {
@@ -146,6 +146,9 @@
                     alert(message);
                     if (message.includes("Congratulations")) {
                         startConfetti();
+                        setTimeout(() => {
+                            alert(message);
+                        }, 3000);
                         ws.send("move");
                     }
                 })
@@ -184,6 +187,7 @@
                 });
                 requestAnimationFrame(drawConfetti);
             }
+
             drawConfetti();
             setTimeout(() => confettiCanvas.remove(), 5000);
         }
