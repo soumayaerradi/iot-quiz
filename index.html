@@ -143,13 +143,15 @@
                 .then((response) => response.text())
                 .then((message) => {
                     document.querySelector(".loading").style.display = "none";
-                    alert(message);
+
                     if (message.includes("Congratulations")) {
                         startConfetti();
                         setTimeout(() => {
                             alert(message);
                         }, 3000);
                         ws.send("move");
+                    } else {
+                        alert(message);
                     }
                 })
                 .catch((error) => console.error("Error:", error));
