@@ -4,6 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TypeScript IoT Quiz</title>
+    <style>
+        /* Import Google Font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+        /* Reset Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Body Styling */
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Quiz Container */
+        .quiz-container {
+            background: white;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007acc;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        /* Input Fields */
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        /* Questions Styling */
+        h3 {
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        label {
+            display: block;
+            padding: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Radio Buttons */
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        /* Submit Button */
+        .btn {
+            background-color: #007acc;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #005ea6;
+        }
+
+        /* Responsive for Mobile */
+        @media (max-width: 600px) {
+            .quiz-container {
+                width: 90%;
+            }
+        }
+    </style>
     <script>
         let ws;
 
@@ -27,7 +120,7 @@
                 return;
             }
 
-            fetch("https://random-id.ngrok.io/submit", { // Update this with ngrok URL
+            fetch("https://random-id.ngrok.io/submit", { // Update with your ngrok URL
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name, answers }),
@@ -44,39 +137,40 @@
     </script>
   </head>
   <body onload="connectWebSocket()">
-    <h1>TypeScript IoT Quiz</h1>
-    <p>First correct answer moves the servo!</p>
+    <div class="quiz-container">
+      <h1>TypeScript IoT Quiz</h1>
+      <p>First correct answer moves the servo!</p>
 
-    <label>Enter your name:</label>
-    <input type="text" id="name" required>
+      <label>Enter your name:</label>
+      <input type="text" id="name" required>
 
-    <h3>1. What language is typically used for Arduino?</h3>
-    <input type="radio" name="q1" value="a"> Python <br>
-    <input type="radio" name="q1" value="b"> C++ <br>
-    <input type="radio" name="q1" value="c"> JavaScript <br>
+      <h3>1. What language is typically used for Arduino?</h3>
+      <label><input type="radio" name="q1" value="a"> Python</label>
+      <label><input type="radio" name="q1" value="b"> C++</label>
+      <label><input type="radio" name="q1" value="c"> JavaScript</label>
 
-    <h3>2. What does Johnny-Five allow you to do?</h3>
-    <input type="radio" name="q2" value="a"> Play music <br>
-    <input type="radio" name="q2" value="b"> Run JavaScript in the browser <br>
-    <input type="radio" name="q2" value="c"> Control hardware with JavaScript <br>
+      <h3>2. What does Johnny-Five allow you to do?</h3>
+      <label><input type="radio" name="q2" value="a"> Play music</label>
+      <label><input type="radio" name="q2" value="b"> Run JavaScript in the browser</label>
+      <label><input type="radio" name="q2" value="c"> Control hardware with JavaScript</label>
 
-    <h3>3. Which of these is NOT an advantage of TypeScript?</h3>
-    <input type="radio" name="q3" value="a"> Slower development <br>
-    <input type="radio" name="q3" value="b"> Type safety <br>
-    <input type="radio" name="q3" value="c"> Better debugging <br>
+      <h3>3. Which of these is NOT an advantage of TypeScript?</h3>
+      <label><input type="radio" name="q3" value="a"> Slower development</label>
+      <label><input type="radio" name="q3" value="b"> Type safety</label>
+      <label><input type="radio" name="q3" value="c"> Better debugging</label>
 
-    <h3>4. What protocol does Johnny-Five use to communicate with Arduino?</h3>
-    <input type="radio" name="q4" value="a"> HTTP <br>
-    <input type="radio" name="q4" value="b"> Firmata <br>
-    <input type="radio" name="q4" value="c"> MQTT <br>
+      <h3>4. What protocol does Johnny-Five use to communicate with Arduino?</h3>
+      <label><input type="radio" name="q4" value="a"> HTTP</label>
+      <label><input type="radio" name="q4" value="b"> Firmata</label>
+      <label><input type="radio" name="q4" value="c"> MQTT</label>
 
-    <h3>5. What does a servo motor do?</h3>
-    <input type="radio" name="q5" value="a"> Controls voltage <br>
-    <input type="radio" name="q5" value="b"> Measures temperature <br>
-    <input type="radio" name="q5" value="c"> Reads RFID tags <br>
-    <input type="radio" name="q5" value="d"> Moves to a specific angle <br>
+      <h3>5. What does a servo motor do?</h3>
+      <label><input type="radio" name="q5" value="a"> Controls voltage</label>
+      <label><input type="radio" name="q5" value="b"> Measures temperature</label>
+      <label><input type="radio" name="q5" value="c"> Reads RFID tags</label>
+      <label><input type="radio" name="q5" value="d"> Moves to a specific angle</label>
 
-    <br>
-    <button onclick="submitQuiz()">Submit Answers</button>
+      <button class="btn" onclick="submitQuiz()">Submit Answers</button>
+    </div>
   </body>
 </html>
