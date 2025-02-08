@@ -15,7 +15,7 @@
         }
 
         body {
-            background: url('https://source.unsplash.com/1600x900/?technology') no-repeat center center/cover;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: #333;
             padding: 30px;
         }
@@ -114,8 +114,9 @@
         let confettiCanvas;
 
         function connectWebSocket() {
-            ws = new WebSocket("wss://iot-quiz-bck.railway.app");
-            ws.onopen = () => console.log("Connected to server");
+            ws = new WebSocket("wss://b177-192-167-31-3.ngrok-free.app");
+            ws.onopen = () => console.log("Connected to WebSocket server");
+            ws.onerror = (error) => console.error("WebSocket error:", error);
         }
 
         function submitQuiz() {
@@ -135,7 +136,7 @@
 
             document.querySelector(".loading").style.display = "block";
 
-            fetch("https://1ae7-192-167-31-3.ngrok-free.app/submit", {
+            fetch("https://c09a-192-167-31-3.ngrok-free.app/submit", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({name, answers}),
