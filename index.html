@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeScript IoT Quiz</title>
+    <script>
+        let ws;
+
+        function connectWebSocket() {
+            ws = new WebSocket("ws://localhost:8080");
+            ws.onopen = () => console.log("Connected to server");
+        }
+
+        function submitQuiz() {
+            const name = document.getElementById("name").value;
+            const answers = {
+                q1: document.querySelector('input[name="q1"]:checked')?.value,
+                q2: document.querySelector('input[name="q2"]:checked')?.value,
+                q3: document.querySelector('input[name="q3"]:checked')?.value,
+                q4: document.querySelector('input[name="q4"]:checked')?.value,
+                q5: document.querySelector('input[name="q5"]:checked')?.value,
+            };
+
+            if (!name || Object.values(answers).includes(undefined)) {
+                alert("Please answer all questions and enter your name.");
+                return;
+            }
+
+            fetch("https://random-id.ngrok.io/submit", { // Update this with ngrok URL
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, answers }),
+            })
+                .then((response) => response.text())
+                .then((message) => {
+                    alert(message);
+                    if (message.includes("Congratulations")) {
+                        ws.send("move"); // Move the servo if winner is correct
+                    }
+                })
+                .catch((error) => console.error("Error:", error));
+        }
+    </script>
+  </head>
+  <body onload="connectWebSocket()">
+    <h1>TypeScript IoT Quiz</h1>
+    <p>First correct answer moves the servo!</p>
+
+    <label>Enter your name:</label>
+    <input type="text" id="name" required>
+
+    <h3>1. What language is typically used for Arduino?</h3>
+    <input type="radio" name="q1" value="a"> Python <br>
+    <input type="radio" name="q1" value="b"> C++ <br>
+    <input type="radio" name="q1" value="c"> JavaScript <br>
+
+    <h3>2. What does Johnny-Five allow you to do?</h3>
+    <input type="radio" name="q2" value="a"> Play music <br>
+    <input type="radio" name="q2" value="b"> Run JavaScript in the browser <br>
+    <input type="radio" name="q2" value="c"> Control hardware with JavaScript <br>
+
+    <h3>3. Which of these is NOT an advantage of TypeScript?</h3>
+    <input type="radio" name="q3" value="a"> Slower development <br>
+    <input type="radio" name="q3" value="b"> Type safety <br>
+    <input type="radio" name="q3" value="c"> Better debugging <br>
+
+    <h3>4. What protocol does Johnny-Five use to communicate with Arduino?</h3>
+    <input type="radio" name="q4" value="a"> HTTP <br>
+    <input type="radio" name="q4" value="b"> Firmata <br>
+    <input type="radio" name="q4" value="c"> MQTT <br>
+
+    <h3>5. What does a servo motor do?</h3>
+    <input type="radio" name="q5" value="a"> Controls voltage <br>
+    <input type="radio" name="q5" value="b"> Measures temperature <br>
+    <input type="radio" name="q5" value="c"> Reads RFID tags <br>
+    <input type="radio" name="q5" value="d"> Moves to a specific angle <br>
+
+    <br>
+    <button onclick="submitQuiz()">Submit Answers</button>
+  </body>
+</html>
