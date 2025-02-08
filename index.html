@@ -125,7 +125,7 @@
         let confettiCanvas;
 
         function connectWebSocket() {
-            ws = new WebSocket("ws://localhost:8080");
+            ws = new WebSocket("wss://iot-quiz-bck.railway.app");
             ws.onopen = () => console.log("Connected to server");
         }
 
@@ -223,6 +223,17 @@
       <label><input type="radio" name="q3" value="a"> Slower development</label>
       <label><input type="radio" name="q3" value="b"> Type safety</label>
       <label><input type="radio" name="q3" value="c"> Better debugging</label>
+
+      <h3>4. What protocol does Johnny-Five use to communicate with Arduino?</h3>
+      <label><input type="radio" name="q4" value="a"> HTTP</label>
+      <label><input type="radio" name="q4" value="b"> Firmata</label>
+      <label><input type="radio" name="q4" value="c"> MQTT</label>
+
+      <h3>5. What does a servo motor do?</h3>
+      <label><input type="radio" name="q5" value="a"> Controls voltage</label>
+      <label><input type="radio" name="q5" value="b"> Measures temperature</label>
+      <label><input type="radio" name="q5" value="c"> Reads RFID tags</label>
+      <label><input type="radio" name="q5" value="d"> Moves to a specific angle</label>
 
       <button class="btn" onclick="submitQuiz()">Submit Answers</button>
       <p class="loading">Checking answers...</p>
